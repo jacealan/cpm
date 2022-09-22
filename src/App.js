@@ -256,13 +256,14 @@ function App() {
         .title {
           width: 360px;
           margin-bottom: 1rem;
-          padding: 10px;
+          padding: 10px 0;
           // grid-area: 1 / 1 / 2 / 3;
           display: flex;
           justify-content: center;
           font-family: 'Saira Stencil One', cursive;
           font-size: 3rem;
           font-weight: 600;
+          line-height: 2.5rem;
         }
 
         .author {
