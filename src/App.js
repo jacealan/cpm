@@ -158,12 +158,23 @@ function ColorPalette(props) {
 
 
 function App() {
-  const [h, setH] = useState(0);
+  const [h, setH] = useState(210);
   const [s, setS] = useState(0.9);
   const [v, setV] = useState(0.9);
   
-  const [background, setBackground] = useState(0);
+  const [background, setBackground] = useState("#E6ECF2");
   const [colorDif, setColorDif] = useState(60);
+
+  // setBackground(hsvToRgb(210).hex);
+  const newRgbs = [];
+  const pickSV1 = [0.15, 0.3, 0.5, 0.75, 0.95];
+  pickSV1.forEach((sv, idx) => {newRgbs[idx] = hsvToRgb(h / 360, 1 - sv, sv)});
+  const pickSV2 = [0.2, 0.5, 0.75, 0.9, 0.95];
+  pickSV2.forEach((sv, idx) => {newRgbs[idx + 5] = hsvToRgb(h / 360, 1 - sv ** 10, sv)});
+  const pickH = [h, (h + colorDif) % 360, (h + colorDif * 2) % 360, (h + colorDif * 3) % 360, (h + colorDif * 4) % 360]
+  pickH.forEach((hh, idx) => {newRgbs[idx + 10] = hsvToRgb(hh / 360, s, v)});
+  pickH.forEach((hh, idx) => {newRgbs[idx + 15] = hsvToRgb(hh / 360, 0.7, 0.7)});
+  const [rgbs, setRgbs] = useState(newRgbs);
 
   const onChangeHue = (color) => {
     setBackground(color.hex);
@@ -187,17 +198,6 @@ function App() {
     pickH.forEach((hh, idx) => {newRgbs[idx + 15] = hsvToRgb(hh / 360, 0.7, 0.7)});
     setRgbs(newRgbs);
   }
-
-  const newRgbs = [];
-  const pickSV1 = [0.15, 0.3, 0.5, 0.75, 0.95];
-  pickSV1.forEach((sv, idx) => {newRgbs[idx] = hsvToRgb(h / 360, 1 - sv, sv)});
-  const pickSV2 = [0.2, 0.5, 0.75, 0.9, 0.95];
-  pickSV2.forEach((sv, idx) => {newRgbs[idx + 5] = hsvToRgb(h / 360, 1 - sv ** 10, sv)});
-  const dif = 30;
-  const pickH = [h, (h + dif) % 360, (h + dif * 2) % 360, (h + dif * 3) % 360, (h + dif * 4) % 360]
-  pickH.forEach((hh, idx) => {newRgbs[idx + 10] = hsvToRgb(hh / 360, s, v)});
-  pickH.forEach((hh, idx) => {newRgbs[idx + 15] = hsvToRgb(hh / 360, 0.7, 0.7)});
-  const [rgbs, setRgbs] = useState(newRgbs);
 
   return (
     <div className="container">
