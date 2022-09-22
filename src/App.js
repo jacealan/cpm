@@ -203,6 +203,14 @@ function App() {
     <div className="container">
 
       <div className="grid">
+        
+        <div className="center">
+          <div className="title">Color Palette Maker</div>
+        </div>
+        <div className="center">
+          <div className="author">Ⓒ Jace</div>
+        </div>
+
         <div className="center">
           <div className="controller-hue">
             <div className="hue-text">
@@ -237,11 +245,6 @@ function App() {
       </div>
       <style jsx>{`
         .container {
-          // display: flex;
-          // justify-content: center;
-          // max-width: 760px;
-          // min-width: 360px;
-          // width: 100% ;
         }
         .grid {
           width: 100vw;
@@ -249,6 +252,30 @@ function App() {
           display: grid;
           grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
         }
+
+        .title {
+          width: 360px;
+          margin-bottom: 1rem;
+          padding: 10px;
+          // grid-area: 1 / 1 / 2 / 3;
+          display: flex;
+          justify-content: center;
+          font-family: 'Saira Stencil One', cursive;
+          font-size: 3rem;
+          font-weight: 600;
+        }
+
+        .author {
+          width: 360px;
+          margin-bottom: 1rem;
+          padding: 10px;
+          display: flex;
+          justify-content: flex-end;
+          align-items: end;
+          color: #aaa;
+        }
+
+
         .center {
           display: flex;
           justify-content: center;
@@ -276,7 +303,8 @@ function App() {
         }
 
         .controller-interval {
-          margin-top: 20px;
+          position: relative;
+          top: 20px;
           width: 360px;
           height: 20px;
           display: grid;
