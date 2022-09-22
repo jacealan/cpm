@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { HuePicker } from 'react-color'; // http://casesandberg.github.io/react-color/
+import { Slider, RangeSlider } from 'rsuite';
 // import logo from './logo.svg';
 import './App.css';
 
@@ -43,23 +44,147 @@ function hsvToRgb(h, s, v) {
   };
 }
 
-// https://www.unum.la/blog/color-theory-on-instagram
+function ColorPalette(props) {
+  return (
+    <div>
+      <div className={`${props.cp}-palette`}>        
+        <div className={`${props.cp}-color1`}></div>
+        <div className={`${props.cp}-color1`}></div>
+        <div className={`${props.cp}-color2`}></div>
+        <div className={`${props.cp}-color2`}></div>
+        <div className={`${props.cp}-color2`}></div>
+        <div className={`${props.cp}-color3`}></div>
+        <div className={`${props.cp}-color3`}></div>
+        
+        <div className={`${props.cp}-color1`}></div>
+        <div className={`${props.cp}-color0`}>{props.color0}</div>
+        <div className={`${props.cp}-color2`}></div>
+        <div className={`${props.cp}-color1`}>{props.color1}</div>
+        <div className={`${props.cp}-color3`}></div>
+        
+        <div className={`${props.cp}-color3`}></div>
+        <div className={`${props.cp}-color4`}></div>
+        <div className={`${props.cp}-color0`}></div>
+        
+        <div className={`${props.cp}-color3`}></div>
+        <div className={`${props.cp}-color3`}></div>
+        <div className={`${props.cp}-color4`}></div>
+        <div className={`${props.cp}-color4`}>{props.color4}</div>
+        <div className={`${props.cp}-color4`}></div>
+        <div className={`${props.cp}-color0`}></div>
+        <div className={`${props.cp}-color0`}></div>
+        
+        <div className={`${props.cp}-color3`}></div>
+        <div className={`${props.cp}-color2`}>{props.color2}</div>
+        <div className={`${props.cp}-color4`}></div>
+        <div className={`${props.cp}-color3`}>{props.color3}</div>
+        <div className={`${props.cp}-color0`}></div>
+        
+        <div className={`${props.cp}-color0`}></div>
+        <div className={`${props.cp}-color1`}></div>
+        <div className={`${props.cp}-color2`}></div>
+
+        <div className={`${props.cp}-color0`}></div>
+        <div className={`${props.cp}-color0`}></div>
+        <div className={`${props.cp}-color1`}></div>
+        <div className={`${props.cp}-color1`}></div>
+        <div className={`${props.cp}-color1`}></div>
+        <div className={`${props.cp}-color2`}></div>
+        <div className={`${props.cp}-color2`}></div>
+      </div>
+      <style jsx>{`      
+        .${props.cp}-palette {
+          margin: 20px auto;
+          width: 360px;
+          height: 360px;
+          display: grid;
+          grid-template-columns: repeat(3, 1fr) 2fr repeat(3, 1fr);
+          grid-template-rows: repeat(3, 1fr) 2fr repeat(3, 1fr);
+        }
+        .${props.cp}-palette div:nth-child(9) {
+          color: white;
+          grid-area: 2 / 2 / 4 / 4;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+        .${props.cp}-palette div:nth-child(11) {
+          color: white;
+          grid-area: 2 / 5 / 4 / 7;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+        .${props.cp}-palette div:nth-child(19) {
+          ${(props.cp === "cp3") || (props.cp === "cp4") ? "color:white;" : ""}
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+        .${props.cp}-palette div:nth-child(24) {
+          color: white;
+          grid-area: 5 / 2 / 7 / 4;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+        .${props.cp}-palette div:nth-child(26) {
+          color: white;
+          grid-area: 5 / 5 / 7 / 7;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+        
+        .${props.cp}-color0 {
+          background-color: ${props.color0};
+        }
+        .${props.cp}-color1 {
+          background-color: ${props.color1};
+        }
+        .${props.cp}-color2 {
+          background-color: ${props.color2};
+        }
+        .${props.cp}-color3 {
+          background-color: ${props.color3};
+        }
+        .${props.cp}-color4 {
+          background-color: ${props.color4};
+        }
+      `}</style>
+    </div>
+  )
+}
+
+
 function App() {
   const [h, setH] = useState(0);
-  const [s, setS] = useState(0.5);
-  const [v, setV] = useState(0.5);
+  const [s, setS] = useState(0.9);
+  const [v, setV] = useState(0.9);
   
   const [background, setBackground] = useState(0);
+  const [colorDif, setColorDif] = useState(60);
+
   const onChangeHue = (color) => {
-    console.log(color)
     setBackground(color.hex);
     setH(Math.round(color.hsv.h));
     const newRgbs = [];
     const pickSV1 = [0.15, 0.3, 0.5, 0.75, 0.95];
     pickSV1.forEach((sv, idx) => {newRgbs[idx] = hsvToRgb(h / 360, 1 - sv, sv)});
-    // pickSV.forEach((sv, idx) => {newRgbs[idx] = hsvToRgb(h / 360, 1 - 1 / (1 - sv), sv)});
     const pickSV2 = [0.2, 0.5, 0.75, 0.9, 0.95];
     pickSV2.forEach((sv, idx) => {newRgbs[idx + 5] = hsvToRgb(h / 360, 1 - sv ** 10, sv)});
+
+    const pickH = [h, (h + colorDif) % 360, (h + colorDif * 2) % 360, (h + colorDif * 3) % 360, (h + colorDif * 4) % 360]
+    pickH.forEach((hh, idx) => {newRgbs[idx + 10] = hsvToRgb(hh / 360, s, v)});
+    pickH.forEach((hh, idx) => {newRgbs[idx + 15] = hsvToRgb(hh / 360, 0.7, 0.7)});
+    setRgbs(newRgbs);
+  }
+
+  const onChangeColorDif = (colorDif) => {
+    setColorDif(colorDif);
+    const pickH = [h, (h + colorDif) % 360, (h + colorDif * 2) % 360, (h + colorDif * 3) % 360, (h + colorDif * 4) % 360]
+    pickH.forEach((hh, idx) => {newRgbs[idx + 10] = hsvToRgb(hh / 360, s, v)});
+    pickH.forEach((hh, idx) => {newRgbs[idx + 15] = hsvToRgb(hh / 360, 0.7, 0.7)});
     setRgbs(newRgbs);
   }
 
@@ -68,163 +193,70 @@ function App() {
   pickSV1.forEach((sv, idx) => {newRgbs[idx] = hsvToRgb(h / 360, 1 - sv, sv)});
   const pickSV2 = [0.2, 0.5, 0.75, 0.9, 0.95];
   pickSV2.forEach((sv, idx) => {newRgbs[idx + 5] = hsvToRgb(h / 360, 1 - sv ** 10, sv)});
+  const dif = 30;
+  const pickH = [h, (h + dif) % 360, (h + dif * 2) % 360, (h + dif * 3) % 360, (h + dif * 4) % 360]
+  pickH.forEach((hh, idx) => {newRgbs[idx + 10] = hsvToRgb(hh / 360, s, v)});
+  pickH.forEach((hh, idx) => {newRgbs[idx + 15] = hsvToRgb(hh / 360, 0.7, 0.7)});
   const [rgbs, setRgbs] = useState(newRgbs);
-  const onChangeH = (e) => {
-    setH(e.target.value);
-
-    const newRgbs = [];
-    const pickSV1 = [0.15, 0.3, 0.5, 0.75, 0.95];
-    pickSV1.forEach((sv, idx) => {newRgbs[idx] = hsvToRgb(h / 360, 1 - sv, sv)});
-    // pickSV.forEach((sv, idx) => {newRgbs[idx] = hsvToRgb(h / 360, 1 - 1 / (1 - sv), sv)});
-    const pickSV2 = [0.2, 0.5, 0.75, 0.9, 0.95];
-    pickSV2.forEach((sv, idx) => {newRgbs[idx + 5] = hsvToRgb(h / 360, 1 - sv ** 10, sv)});
-    setRgbs(newRgbs);
-  }
-
-  const onChangeS = (e) => {
-    setS(e.target.value);
-  }
-  const onChangeV = (e) => {
-    setV(e.target.value);
-  }
-
-  // pickH.forEach((h, idx) => {rgbs[idx] = hsvToRgb(h + 0.3, 0.7, 0.8)});
-  // pickS.forEach((s, idx) => {rgbs[idx] = hsvToRgb(0.0, s, 0.99)});
-  //// pickSV.forEach((sv, idx) => {rgbs[idx] = hsvToRgb(0.1, sv, 1 - sv)});
-  //// pickV.forEach((v, idx) => {rgbs[idx] = hsvToRgb(0., 0.2, v)});
 
   return (
     <div className="container">
 
-      <div className="controller">
-        <div className="hue-text">
-          HUE : {h}°
-          {/* <input type="number" min="0" max="359" step="1" onChange={onChangeH} value={h} style={{width: 37}} /> */}
+      <div className="grid">
+        <div className="center">
+          <div className="controller-hue">
+            <div className="hue-text">
+              HUE : {h}°
+              {/* <input type="number" min="0" max="359" step="1" onChange={onChangeH} value={h} style={{width: 37}} /> */}
+            </div>
+            <div className="hue-slider">
+              <HuePicker color={background} onChange={onChangeHue} width="270px" />
+            </div>
+            {/* <input onChange={onChangeS} value={s} /> */}
+            {/* <input onChange={onChangeV} value={v} /> */}
+          </div>
         </div>
-        <div className="hue-slider"><HuePicker color={background} onChange={onChangeHue} width="270px" /></div>
-        {/* <input onChange={onChangeS} value={s} /> */}
-        {/* <input onChange={onChangeV} value={v} /> */}
-      </div>
+        <div></div>
 
-      <div className="palette">
-        <div className="color1"></div>
-        <div className="color1"></div>
-        <div className="color2"></div>
-        <div className="color2"></div>
-        <div className="color2"></div>
-        <div className="color3"></div>
-        <div className="color3"></div>
-        
-        <div className="color1"></div>
-        <div className="color0">{rgbs[0].hex}</div>
-        {/* <div className="color0"></div> */}
-        <div className="color2"></div>
-        <div className="color1">{rgbs[1].hex}</div>
-        {/* <div className="color1"></div> */}
-        <div className="color3"></div>
-        
-        <div className="color3"></div>
-        {/* <div className="color0"></div> */}
-        {/* <div className="color0"></div> */}
-        <div className="color4"></div>
-        {/* <div className="color1"></div> */}
-        {/* <div className="color1"></div> */}
-        <div className="color0"></div>
-        
-        <div className="color3"></div>
-        <div className="color3"></div>
-        <div className="color4"></div>
-        <div className="color4">{rgbs[4].hex}</div>
-        <div className="color4"></div>
-        <div className="color0"></div>
-        <div className="color0"></div>
-        
-        <div className="color3"></div>
-        <div className="color2">{rgbs[2].hex}</div>
-        {/* <div className="color2"></div> */}
-        <div className="color4"></div>
-        <div className="color3">{rgbs[3].hex}</div>
-        {/* <div className="color3"></div> */}
-        <div className="color0"></div>
-        
-        <div className="color0"></div>
-        {/* <div className="color2"></div> */}
-        {/* <div className="color2"></div> */}
-        <div className="color1"></div>
-        {/* <div className="color3"></div> */}
-        {/* <div className="color3"></div> */}
-        <div className="color2"></div>
+        <ColorPalette cp="cp1" color0={rgbs[0].hex} color1={rgbs[1].hex} color2={rgbs[2].hex} color3={rgbs[3].hex} color4={rgbs[4].hex} />
+        <ColorPalette cp="cp2" color0={rgbs[5].hex} color1={rgbs[6].hex} color2={rgbs[7].hex} color3={rgbs[8].hex} color4={rgbs[9].hex} />
 
-        <div className="color0"></div>
-        <div className="color0"></div>
-        <div className="color1"></div>
-        <div className="color1"></div>
-        <div className="color1"></div>
-        <div className="color2"></div>
-        <div className="color2"></div>
-      </div>
-      <hr />
-      <div className="palette">
-        <div className="color6"></div>
-        <div className="color6"></div>
-        <div className="color7"></div>
-        <div className="color7"></div>
-        <div className="color7"></div>
-        <div className="color8"></div>
-        <div className="color8"></div>
-        
-        <div className="color6"></div>
-        <div className="color5">{rgbs[5].hex}</div>
-        {/* <div className="color5"></div> */}
-        <div className="color7"></div>
-        <div className="color6">{rgbs[6].hex}</div>
-        {/* <div className="color6"></div> */}
-        <div className="color8"></div>
-        
-        <div className="color8"></div>
-        {/* <div className="color5"></div> */}
-        {/* <div className="color5"></div> */}
-        <div className="color9"></div>
-        {/* <div className="color6"></div> */}
-        {/* <div className="color6"></div> */}
-        <div className="color5"></div>
-        
-        <div className="color8"></div>
-        <div className="color8"></div>
-        <div className="color9"></div>
-        <div className="color9">{rgbs[9].hex}</div>
-        <div className="color9"></div>
-        <div className="color5"></div>
-        <div className="color5"></div>
-        
-        <div className="color8"></div>
-        <div className="color7">{rgbs[7].hex}</div>
-        {/* <div className="color7"></div> */}
-        <div className="color9"></div>
-        <div className="color8">{rgbs[8].hex}</div>
-        {/* <div className="color8"></div> */}
-        <div className="color5"></div>
-        
-        <div className="color5"></div>
-        {/* <div className="color7"></div> */}
-        {/* <div className="color7"></div> */}
-        <div className="color6"></div>
-        {/* <div className="color8"></div> */}
-        {/* <div className="color8"></div> */}
-        <div className="color7"></div>
 
-        <div className="color5"></div>
-        <div className="color5"></div>
-        <div className="color6"></div>
-        <div className="color6"></div>
-        <div className="color6"></div>
-        <div className="color7"></div>
-        <div className="color7"></div>
+        <div className="center">
+          <div className="controller-interval">
+            <div className="interval-text">HUE Interval</div>
+            <div className="interval-slider">
+              <Slider progress min={1} max={359} step={1} value={colorDif} onChange={onChangeColorDif} />
+            </div>
+          </div>
+        </div>
+        <div></div>
+
+        <ColorPalette cp="cp3" color0={rgbs[10].hex} color1={rgbs[11].hex} color2={rgbs[12].hex} color3={rgbs[13].hex} color4={rgbs[14].hex} />
+        <ColorPalette cp="cp4" color0={rgbs[15].hex} color1={rgbs[16].hex} color2={rgbs[17].hex} color3={rgbs[18].hex} color4={rgbs[19].hex} />
       </div>
       <style jsx>{`
-        .controller {
+        .container {
+          // display: flex;
+          // justify-content: center;
+          // max-width: 760px;
+          // min-width: 360px;
+          // width: 100% ;
+        }
+        .grid {
+          width: 100vw;
+          max-width: 800px;
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+        }
+        .center {
+          display: flex;
+          justify-content: center;
+        }
+
+        .controller-hue {
           width: 360px;
-          height: 36px;
+          height: 20px;
           display: grid;
           grid-template-columns: 1fr 3fr;
         }
@@ -243,77 +275,27 @@ function App() {
           align-items: center;
         }
 
-        .palette {
+        .controller-interval {
+          margin-top: 20px;
           width: 360px;
-          height: 360px;
+          height: 20px;
           display: grid;
-          grid-template-columns: repeat(3, 1fr) 2fr repeat(3, 1fr);
-          grid-template-rows: repeat(3, 1fr) 2fr repeat(3, 1fr);
+          grid-template-columns: 1fr 3fr;
         }
-        .palette div:nth-child(9) {
-          color: white;
-          grid-area: 2 / 2 / 4 / 4;
+        .interval-text {
+          margin: -5px 5px 10px 5px;
+          border: solid 1px grey;
+          border-radius: 10px;
+          font-size: 0.5rem;
           display: flex;
           justify-content: center;
           align-items: center;
         }
-        .palette div:nth-child(11) {
-          color: white;
-          grid-area: 2 / 5 / 4 / 7;
-          display: flex;
-          justify-content: center;
-          align-items: center;
+        .interval-slider {
+          margin-bottom: -20px;
+          padding-bottom: -20px;
         }
-        .palette div:nth-child(19) {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-        }
-        .palette div:nth-child(24) {
-          color: white;
-          grid-area: 5 / 2 / 7 / 4;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-        }
-        .palette div:nth-child(26) {
-          color: white;
-          grid-area: 5 / 5 / 7 / 7;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-        }
-        
-        .color0 {
-          background-color: rgb(${rgbs[0].r}, ${rgbs[0].g}, ${rgbs[0].b});
-        }
-        .color1 {
-          background-color: rgb(${rgbs[1].r}, ${rgbs[1].g}, ${rgbs[1].b});
-        }
-        .color2 {
-          background-color: rgb(${rgbs[2].r}, ${rgbs[2].g}, ${rgbs[2].b});
-        }
-        .color3 {
-          background-color: rgb(${rgbs[3].r}, ${rgbs[3].g}, ${rgbs[3].b});
-        }
-        .color4 {
-          background-color: rgb(${rgbs[4].r}, ${rgbs[4].g}, ${rgbs[4].b});
-        }
-        .color5 {
-          background-color: rgb(${rgbs[5].r}, ${rgbs[5].g}, ${rgbs[5].b});
-        }
-        .color6 {
-          background-color: rgb(${rgbs[6].r}, ${rgbs[6].g}, ${rgbs[6].b});
-        }
-        .color7 {
-          background-color: rgb(${rgbs[7].r}, ${rgbs[7].g}, ${rgbs[7].b});
-        }
-        .color8 {
-          background-color: rgb(${rgbs[8].r}, ${rgbs[8].g}, ${rgbs[8].b});
-        }
-        .color9 {
-          background-color: rgb(${rgbs[9].r}, ${rgbs[9].g}, ${rgbs[9].b});
-        }
+
       `}</style>
     </div>
   );
