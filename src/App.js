@@ -57,9 +57,9 @@ function ColorPalette(props) {
         <div className={`${props.cp}-color3`}></div>
         
         <div className={`${props.cp}-color1`}></div>
-        <div className={`${props.cp}-color0`}>{props.color0}</div>
+        <div className={`${props.cp}-color0`} onClick={() => {navigator.clipboard.writeText(props.color0); alert('Copied ' + props.color0)}}>{props.color0}</div>
         <div className={`${props.cp}-color2`}></div>
-        <div className={`${props.cp}-color1`}>{props.color1}</div>
+        <div className={`${props.cp}-color1`} onClick={() => {navigator.clipboard.writeText(props.color1); alert('Copied ' + props.color1)}}>{props.color1}</div>
         <div className={`${props.cp}-color3`}></div>
         
         <div className={`${props.cp}-color3`}></div>
@@ -69,15 +69,15 @@ function ColorPalette(props) {
         <div className={`${props.cp}-color3`}></div>
         <div className={`${props.cp}-color3`}></div>
         <div className={`${props.cp}-color4`}></div>
-        <div className={`${props.cp}-color4`}>{props.color4}</div>
+        <div className={`${props.cp}-color4`} onClick={() => {navigator.clipboard.writeText(props.color4); alert('Copied ' + props.color4)}}>{props.color4}</div>
         <div className={`${props.cp}-color4`}></div>
         <div className={`${props.cp}-color0`}></div>
         <div className={`${props.cp}-color0`}></div>
         
         <div className={`${props.cp}-color3`}></div>
-        <div className={`${props.cp}-color2`}>{props.color2}</div>
+        <div className={`${props.cp}-color2`} onClick={() => {navigator.clipboard.writeText(props.color2); alert('Copied ' + props.color2)}}>{props.color2}</div>
         <div className={`${props.cp}-color4`}></div>
-        <div className={`${props.cp}-color3`}>{props.color3}</div>
+        <div className={`${props.cp}-color3`} onClick={() => {navigator.clipboard.writeText(props.color3); alert('Copied ' + props.color3)}}>{props.color3}</div>
         <div className={`${props.cp}-color0`}></div>
         
         <div className={`${props.cp}-color0`}></div>
