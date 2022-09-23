@@ -218,7 +218,7 @@ function App() {
         <div className="center">
           <div className="controller-hue">
             <div className="hue-text">
-              HUE : {h}°
+              HUE {h}°
               {/* <input type="number" min="0" max="359" step="1" onChange={onChangeH} value={h} style={{width: 37}} /> */}
             </div>
             <div className="hue-slider">
