@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { HuePicker } from 'react-color'; // http://casesandberg.github.io/react-color/
-import { Slider, RangeSlider } from 'rsuite';
+// import { Slider, RangeSlider } from 'rsuite';
+import Slider from 'react-rangeslider'
 // import logo from './logo.svg';
 import './App.css';
 
@@ -236,9 +237,18 @@ function App() {
         <div className="center">
           <div className="controller-interval">
             <div className="interval-text">HUE Interval</div>
-            <div className="interval-slider">
+            {/* <div className="interval-slider">
               <Slider progress min={1} max={359} step={1} value={colorDif} onChange={onChangeColorDif} />
-            </div>
+            </div> */}
+                    <Slider
+          min={0}
+          max={359}
+          value={colorDif}
+          labels={colorDif}
+          // format={formatkg}
+          // handleLabel={colorDif}
+          onChange={onChangeColorDif}
+        />
           </div>
         </div>
         <div></div>
@@ -328,6 +338,7 @@ function App() {
           margin-bottom: -20px;
           padding-bottom: -20px;
         }
+        
 
       `}</style>
     </div>

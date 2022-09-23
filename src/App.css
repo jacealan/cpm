@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Saira+Stencil+One&display=swap');
+@import 'react-rangeslider/lib/index.css';
 @import "rsuite/dist/rsuite.css";
 
 .App {
