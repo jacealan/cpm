@@ -335,8 +335,7 @@ function App() {
           align-items: center;
         }
         .interval-slider {
-        }
-        
+        }        
 
       `}</style>
     </div>
