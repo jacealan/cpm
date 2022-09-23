@@ -229,12 +229,11 @@ function App() {
         <ColorPalette cp="cp1" color0={rgbs[0].hex} color1={rgbs[1].hex} color2={rgbs[2].hex} color3={rgbs[3].hex} color4={rgbs[4].hex} />
         <ColorPalette cp="cp2" color0={rgbs[5].hex} color1={rgbs[6].hex} color2={rgbs[7].hex} color3={rgbs[8].hex} color4={rgbs[9].hex} />
 
-
         <div className="center">
           <div className="controller-interval">
             <div className="interval-text">HUE Interval</div>
             <div className="interval-slider">
-              <Slider progress min={1} max={359} step={1} value={colorDif} onChange={onChangeColorDif} />
+              <Slider min={1} max={359} step={1} value={colorDif} onChange={onChangeColorDif} />
             </div>
           </div>
         </div>
@@ -243,6 +242,7 @@ function App() {
         <ColorPalette cp="cp3" color0={rgbs[10].hex} color1={rgbs[11].hex} color2={rgbs[12].hex} color3={rgbs[13].hex} color4={rgbs[14].hex} />
         <ColorPalette cp="cp4" color0={rgbs[15].hex} color1={rgbs[16].hex} color2={rgbs[17].hex} color3={rgbs[18].hex} color4={rgbs[19].hex} />
       </div>
+
       <style jsx>{`
         .container {
         }
@@ -251,6 +251,11 @@ function App() {
           max-width: 800px;
           display: grid;
           grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+        }
+
+        .center {
+          display: flex;
+          justify-content: center;
         }
 
         .title {
@@ -265,7 +270,6 @@ function App() {
           font-weight: 600;
           line-height: 2.5rem;
         }
-
         .author {
           width: 360px;
           margin-bottom: 1rem;
@@ -274,12 +278,6 @@ function App() {
           justify-content: flex-end;
           align-items: end;
           color: #aaa;
-        }
-
-
-        .center {
-          display: flex;
-          justify-content: center;
         }
 
         .controller-hue {
