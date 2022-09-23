@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { HuePicker } from 'react-color'; // http://casesandberg.github.io/react-color/
-// import { Slider, RangeSlider } from 'rsuite';
 import Slider from 'react-rangeslider'
 // import logo from './logo.svg';
 import './App.css';
@@ -236,19 +235,18 @@ function App() {
 
         <div className="center">
           <div className="controller-interval">
-            <div className="interval-text">HUE Interval</div>
-            {/* <div className="interval-slider">
-              <Slider progress min={1} max={359} step={1} value={colorDif} onChange={onChangeColorDif} />
-            </div> */}
-                    <Slider
-          min={0}
-          max={359}
-          value={colorDif}
-          labels={colorDif}
-          // format={formatkg}
-          // handleLabel={colorDif}
-          onChange={onChangeColorDif}
-        />
+            <div className="interval-text">Interval {colorDif}</div>
+            <div className="interval-slider">            
+              <Slider
+                min={0}
+                max={359}
+                value={colorDif}
+                // labels={colorDif}
+                // format={formatkg}
+                // handleLabel={colorDif}
+                onChange={onChangeColorDif}
+              />
+            </div>
           </div>
         </div>
         <div></div>
@@ -318,15 +316,17 @@ function App() {
         }
 
         .controller-interval {
-          position: relative;
-          top: 20px;
+          // position: relative;
+          // top: 20px;
           width: 360px;
-          height: 20px;
+          height: 24px;
           display: grid;
           grid-template-columns: 1fr 3fr;
+          align-items: center;
         }
         .interval-text {
-          margin: -5px 5px 10px 5px;
+          height: 20px;
+          margin: 0 5px 0 5px;
           border: solid 1px grey;
           border-radius: 10px;
           font-size: 0.5rem;
@@ -335,8 +335,6 @@ function App() {
           align-items: center;
         }
         .interval-slider {
-          margin-bottom: -20px;
-          padding-bottom: -20px;
         }
         
 
