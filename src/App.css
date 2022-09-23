@@ -39,3 +39,8 @@
     transform: rotate(360deg);
   }
 }
+
+a, a:hover, a:active, a:visited {
+  text-decoration: none;
+  color: inherit;
+}

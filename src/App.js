@@ -208,7 +208,11 @@ function App() {
           <div className="title">Color Palette Maker</div>
         </div>
         <div className="center">
-          <div className="author">Ⓒ Jace</div>
+          <div className="author">
+            <a href="https://japp-nu.vercel.app/bookmark" target="_blank">Japp <img src="/link.svg" width="12px" /></a>
+            <a href="https://jadoc.vercel.app/" target="_blank">JaDoc <img src="/link.svg" width="12px" /></a>
+            ⓒ Jace
+          </div>
         </div>
 
         <div className="center">
@@ -275,9 +279,11 @@ function App() {
           margin-bottom: 1rem;
           padding: 10px;
           display: flex;
-          justify-content: flex-end;
+          flex-direction: column;
+          justify-content: end  ;
           align-items: end;
-          color: #aaa;
+          color: #999;
+          font-size: 0.6rem;
         }
 
         .controller-hue {
