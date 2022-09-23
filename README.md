@@ -4,7 +4,7 @@ https://cpm-jace.vercel.app/
 ## Use Library
 - React: https://ko.reactjs.org/
 - react-color: http://casesandberg.github.io/react-color/
-- React Suite: https://rsuitejs.com/
+- React Rangeslider: https://whoisandy.github.io/react-rangeslider/
 
 ## Reference
 - ![](https://miro.medium.com/max/1400/1*W30TLUP9avQwyyLfwu7WYA.jpeg)
