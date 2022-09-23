@@ -233,7 +233,7 @@ function App() {
           <div className="controller-interval">
             <div className="interval-text">HUE Interval</div>
             <div className="interval-slider">
-              <Slider min={1} max={359} step={1} value={colorDif} onChange={onChangeColorDif} />
+              <Slider progress min={1} max={359} step={1} value={colorDif} onChange={onChangeColorDif} />
             </div>
           </div>
         </div>
