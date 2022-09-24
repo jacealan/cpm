@@ -410,9 +410,9 @@ function App() {
           top: 0;
         }
         .rangeslider-horizontal .rangeslider__handle {
-          width: 20px;
-          height: 20px;
-          border-radius: 20px;
+          width: 30px;
+          height: 30px;
+          border-radius: 30px;
           top: 50%;
           transform: translate3d(-50%, -50%, 0);
         }
@@ -421,8 +421,8 @@ function App() {
           position: absolute;
           width: 16px;
           height: 16px;
-          top: 2px;
-          left: 2px;
+          top: 6px;
+          left: 6px;
           border-radius: 50%;
           background-color: ${rgbs[11].hex};
           box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4) inset, 0 -1px 3px rgba(0, 0, 0, 0.4) inset;
