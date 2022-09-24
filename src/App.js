@@ -45,8 +45,24 @@ function hsvToRgb(h, s, v) {
 }
 
 function ColorPalette(props) {
+  const [showCopied, setShowCopied] = useState("none");
+  const [copiedColor, setCopiedColor] = useState("");
+  const [textColor, setTextColor] = useState("black");
+  const noticeTime = 1000;
+
+  const copyColor = (colorHex, fontColor="white") => {
+    navigator.clipboard.writeText(colorHex);
+    // alert('Copied ' + props.color0);
+    setCopiedColor(colorHex);
+    setTextColor(fontColor);
+    setShowCopied("flex");
+    setTimeout(() => setShowCopied("none"), noticeTime);
+  }
+
   return (
     <div>
+      <div className={`${props.cp}-notice-copied`}>{copiedColor}<br />copied</div>
+
       <div className={`${props.cp}-palette`}>        
         <div className={`${props.cp}-color1`}></div>
         <div className={`${props.cp}-color1`}></div>
@@ -57,9 +73,13 @@ function ColorPalette(props) {
         <div className={`${props.cp}-color3`}></div>
         
         <div className={`${props.cp}-color1`}></div>
-        <div className={`${props.cp}-color0`} onClick={() => {navigator.clipboard.writeText(props.color0); alert('Copied ' + props.color0)}}>{props.color0}</div>
+        <div
+          className={`${props.cp}-color0`}
+          onClick={() => copyColor(props.color0)}>{props.color0}</div>
         <div className={`${props.cp}-color2`}></div>
-        <div className={`${props.cp}-color1`} onClick={() => {navigator.clipboard.writeText(props.color1); alert('Copied ' + props.color1)}}>{props.color1}</div>
+        <div
+          className={`${props.cp}-color1`}
+          onClick={() => copyColor(props.color1)}>{props.color1}</div>
         <div className={`${props.cp}-color3`}></div>
         
         <div className={`${props.cp}-color3`}></div>
@@ -69,15 +89,21 @@ function ColorPalette(props) {
         <div className={`${props.cp}-color3`}></div>
         <div className={`${props.cp}-color3`}></div>
         <div className={`${props.cp}-color4`}></div>
-        <div className={`${props.cp}-color4`} onClick={() => {navigator.clipboard.writeText(props.color4); alert('Copied ' + props.color4)}}>{props.color4}</div>
+        <div
+          className={`${props.cp}-color4`}
+          onClick={() => copyColor(props.color4, "black")}>{props.color4}</div>
         <div className={`${props.cp}-color4`}></div>
         <div className={`${props.cp}-color0`}></div>
         <div className={`${props.cp}-color0`}></div>
         
         <div className={`${props.cp}-color3`}></div>
-        <div className={`${props.cp}-color2`} onClick={() => {navigator.clipboard.writeText(props.color2); alert('Copied ' + props.color2)}}>{props.color2}</div>
+        <div
+          className={`${props.cp}-color2`}
+          onClick={() => copyColor(props.color2)}>{props.color2}</div>
         <div className={`${props.cp}-color4`}></div>
-        <div className={`${props.cp}-color3`} onClick={() => {navigator.clipboard.writeText(props.color3); alert('Copied ' + props.color3)}}>{props.color3}</div>
+        <div
+          className={`${props.cp}-color3`}
+          onClick={() => copyColor(props.color3)}>{props.color3}</div>
         <div className={`${props.cp}-color0`}></div>
         
         <div className={`${props.cp}-color0`}></div>
@@ -92,7 +118,24 @@ function ColorPalette(props) {
         <div className={`${props.cp}-color2`}></div>
         <div className={`${props.cp}-color2`}></div>
       </div>
-      <style jsx>{`      
+      <style jsx>{`
+        .${props.cp}-notice-copied {
+          position: fixed;
+          top: calc(100vh /2 - 25px);
+          left: calc(100vw / 2 - 45px);
+          z-index: 10;
+          width: 90px;
+          height: 50px;
+          border: solid #999 2px;
+          border-radius: 10px;  
+          background-color: ${copiedColor}cc;
+          color: ${textColor};
+          display: ${showCopied};
+          justify-content: center;
+          align-items: center;
+          text-align: center;
+        }
+
         .${props.cp}-palette {
           margin: 20px auto;
           width: 360px;
@@ -156,6 +199,25 @@ function ColorPalette(props) {
   )
 }
 
+// function NoticeCopied(props) {
+//   return (
+//     <>
+//       <div className="notice-copied">
+//         {props.copiedColor}12
+//       </div>
+//       <style jsx>{`
+//         .notice-copied {
+//           position: fixed;
+//           top: 100px;
+//           left: calc(100vw / 2);
+//           z-index: 10;
+//           display: ${props.copiedDisplay}
+//         }
+//       `}</style>
+//     </>
+//   )
+// }
+
 
 function App() {
   const [h, setH] = useState(210);
@@ -164,6 +226,9 @@ function App() {
   
   const [background, setBackground] = useState("#E6ECF2");
   const [colorDif, setColorDif] = useState(60);
+  
+  const [copiedColor, setCopiedColor] = useState("");
+  const [copiedDisplay, setCopiedDisplay] = useState("block");
 
   // setBackground(hsvToRgb(210).hex);
   const newRgbs = [];
@@ -258,6 +323,7 @@ function App() {
       <style jsx>{`
         .container {
         }
+
         .grid {
           width: 100vw;
           max-width: 800px;
