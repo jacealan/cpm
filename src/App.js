@@ -401,7 +401,32 @@ function App() {
           align-items: center;
         }
         .interval-slider {
-        }        
+        }
+
+        .rangeslider-horizontal .rangeslider__fill {
+          height: 100%;
+          background-color: ${rgbs[10].hex};
+          border-radius: 10px;
+          top: 0;
+        }
+        .rangeslider-horizontal .rangeslider__handle {
+          width: 20px;
+          height: 20px;
+          border-radius: 20px;
+          top: 50%;
+          transform: translate3d(-50%, -50%, 0);
+        }
+        .rangeslider-horizontal .rangeslider__handle:after {
+          content: ' ';
+          position: absolute;
+          width: 16px;
+          height: 16px;
+          top: 2px;
+          left: 2px;
+          border-radius: 50%;
+          background-color: ${rgbs[11].hex};
+          box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4) inset, 0 -1px 3px rgba(0, 0, 0, 0.4) inset;
+        }
 
       `}</style>
     </div>
