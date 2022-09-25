@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { HuePicker } from 'react-color'; // http://casesandberg.github.io/react-color/
-import Slider from 'react-rangeslider'
-// import logo from './logo.svg';
+import Slider from 'react-rangeslider'; // https://whoisandy.github.io/react-rangeslider/
 import './App.css';
 
 /**
@@ -199,46 +198,23 @@ function ColorPalette(props) {
   )
 }
 
-// function NoticeCopied(props) {
-//   return (
-//     <>
-//       <div className="notice-copied">
-//         {props.copiedColor}12
-//       </div>
-//       <style jsx>{`
-//         .notice-copied {
-//           position: fixed;
-//           top: 100px;
-//           left: calc(100vw / 2);
-//           z-index: 10;
-//           display: ${props.copiedDisplay}
-//         }
-//       `}</style>
-//     </>
-//   )
-// }
-
-
 function App() {
   const [h, setH] = useState(210);
-  const [s, setS] = useState(0.9);
-  const [v, setV] = useState(0.9);
+  const difSV = [[0.9, 0.9], [0.7, 0.7]];
+  // const [s, setS] = useState(0.9);
+  // const [v, setV] = useState(0.9);
   
   const [background, setBackground] = useState("#E6ECF2");
   const [colorDif, setColorDif] = useState(60);
   
-  const [copiedColor, setCopiedColor] = useState("");
-  const [copiedDisplay, setCopiedDisplay] = useState("block");
-
-  // setBackground(hsvToRgb(210).hex);
   const newRgbs = [];
   const pickSV1 = [0.15, 0.3, 0.5, 0.75, 0.95];
   pickSV1.forEach((sv, idx) => {newRgbs[idx] = hsvToRgb(h / 360, 1 - sv, sv)});
   const pickSV2 = [0.2, 0.5, 0.75, 0.9, 0.95];
   pickSV2.forEach((sv, idx) => {newRgbs[idx + 5] = hsvToRgb(h / 360, 1 - sv ** 10, sv)});
   const pickH = [h, (h + colorDif) % 360, (h + colorDif * 2) % 360, (h + colorDif * 3) % 360, (h + colorDif * 4) % 360]
-  pickH.forEach((hh, idx) => {newRgbs[idx + 10] = hsvToRgb(hh / 360, s, v)});
-  pickH.forEach((hh, idx) => {newRgbs[idx + 15] = hsvToRgb(hh / 360, 0.7, 0.7)});
+  pickH.forEach((hh, idx) => {newRgbs[idx + 10] = hsvToRgb(hh / 360, difSV[0][0], difSV[0][1])});
+  pickH.forEach((hh, idx) => {newRgbs[idx + 15] = hsvToRgb(hh / 360, difSV[1][0], difSV[1][1])});
   const [rgbs, setRgbs] = useState(newRgbs);
 
   const onChangeHue = (color) => {
@@ -251,16 +227,16 @@ function App() {
     pickSV2.forEach((sv, idx) => {newRgbs[idx + 5] = hsvToRgb(h / 360, 1 - sv ** 10, sv)});
 
     const pickH = [h, (h + colorDif) % 360, (h + colorDif * 2) % 360, (h + colorDif * 3) % 360, (h + colorDif * 4) % 360]
-    pickH.forEach((hh, idx) => {newRgbs[idx + 10] = hsvToRgb(hh / 360, s, v)});
-    pickH.forEach((hh, idx) => {newRgbs[idx + 15] = hsvToRgb(hh / 360, 0.7, 0.7)});
+    pickH.forEach((hh, idx) => {newRgbs[idx + 10] = hsvToRgb(hh / 360, difSV[0][0], difSV[0][1])});
+    pickH.forEach((hh, idx) => {newRgbs[idx + 15] = hsvToRgb(hh / 360, difSV[1][0], difSV[1][1])});
     setRgbs(newRgbs);
   }
 
   const onChangeColorDif = (colorDif) => {
     setColorDif(colorDif);
     const pickH = [h, (h + colorDif) % 360, (h + colorDif * 2) % 360, (h + colorDif * 3) % 360, (h + colorDif * 4) % 360]
-    pickH.forEach((hh, idx) => {newRgbs[idx + 10] = hsvToRgb(hh / 360, s, v)});
-    pickH.forEach((hh, idx) => {newRgbs[idx + 15] = hsvToRgb(hh / 360, 0.7, 0.7)});
+    pickH.forEach((hh, idx) => {newRgbs[idx + 10] = hsvToRgb(hh / 360, difSV[0][0], difSV[0][1])});
+    pickH.forEach((hh, idx) => {newRgbs[idx + 15] = hsvToRgb(hh / 360, difSV[1][0], difSV[1][1])});
     setRgbs(newRgbs);
   }
 
@@ -274,8 +250,8 @@ function App() {
         </div>
         <div className="center">
           <div className="author">
-            <a href="https://japp-nu.vercel.app/bookmark" target="_blank">Japp <img src="/link.svg" width="12px" /></a>
-            <a href="https://jadoc.vercel.app/" target="_blank">JaDoc <img src="/link.svg" width="12px" /></a>
+            <a href="https://japp-nu.vercel.app/bookmark" target="_blank" rel="noreferrer">Japp <img src="/link.svg" width="12px" alt="Go Link" /></a>
+            <a href="https://jadoc.vercel.app/" target="_blank" rel="noreferrer">JaDoc <img src="/link.svg" width="12px" alt="Go Link" /></a>
             ⓒ Jace
           </div>
         </div>
@@ -284,13 +260,10 @@ function App() {
           <div className="controller-hue">
             <div className="hue-text">
               HUE {h}°
-              {/* <input type="number" min="0" max="359" step="1" onChange={onChangeH} value={h} style={{width: 37}} /> */}
             </div>
             <div className="hue-slider">
               <HuePicker color={background} onChange={onChangeHue} width="270px" />
             </div>
-            {/* <input onChange={onChangeS} value={s} /> */}
-            {/* <input onChange={onChangeV} value={v} /> */}
           </div>
         </div>
         <div></div>
@@ -318,6 +291,17 @@ function App() {
 
         <ColorPalette cp="cp3" color0={rgbs[10].hex} color1={rgbs[11].hex} color2={rgbs[12].hex} color3={rgbs[13].hex} color4={rgbs[14].hex} />
         <ColorPalette cp="cp4" color0={rgbs[15].hex} color1={rgbs[16].hex} color2={rgbs[17].hex} color3={rgbs[18].hex} color4={rgbs[19].hex} />
+
+        <div></div>
+        <div className="center">
+          <div className="ref">
+            <a href="https://github.com/jacealan/cpm" target="_blank" rel="noreferrer">GitHub Repository</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+            <a href="https://ko.reactjs.org/" target="_blank" rel="noreferrer">React</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+            <a href="https://en.wikipedia.org/wiki/HSL_and_HSV" target="_blank" rel="noreferrer">HSL and HSV (from wikipedia)</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+            <a href="http://casesandberg.github.io/react-color/" target="_blank" rel="noreferrer">React Color</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+            <a href="https://whoisandy.github.io/react-rangeslider/" target="_blank" rel="noreferrer">React Rangeslider</a>
+          </div>
+        </div>
       </div>
 
       <style jsx>{`
@@ -356,6 +340,17 @@ function App() {
           flex-direction: column;
           justify-content: end  ;
           align-items: end;
+          color: #999;
+          font-size: 0.6rem;
+        }
+        .ref {
+          width: 360px;
+          margin-bottom: 1rem;
+          padding: 10px;
+          display: flex;
+          flex-wrap: wrap;
+          // justify-content: space-between;
+          // align-items: center;
           color: #999;
           font-size: 0.6rem;
         }
